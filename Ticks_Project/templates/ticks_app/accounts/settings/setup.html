@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<html>
+    {% include 'ticks_app/head.html' %}
+
+    
+    <body>
+        {% if user.is_authenticated %}
+        {% include 'ticks_app/sidebar.html' %}
+
+        <div class="section">
+            {% include 'ticks_app/accounts/settings_bar.html' %}
+            <div class="container">{% include 'ticks_app/message.html' %}</div>
+            <div class="container"><hr class="rounded" ></div>
+            <div class="container">
+                <div class="sub_class">
+                    <form id="day_form" method="post" action="">
+                        <h5>Start of Month: {{cap.start_date}}</h5>
+                        <label class="day-label">Day</label>
+                        <input type="number" min="1" max="30" name="start_day">
+                        <button type="submit" name="day_button">Update</button>
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+            <div class="container"><hr class="rounded" ></div>
+            <div class="container">
+                <div class="sub_class">
+                    <form id="day_form" method="post" action="">
+                        <h5>Savings Target</h5>
+                        <label>Savings</label>
+                        <input type="number" min="1" max=50000 name="savings">
+                        <label>Income</label>
+                        <input type="number" min="1" max=500000 name="income">
+                        <button type="submit" name="saving_button">Submit</button>
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+            <div class="container"><hr class="rounded" ></div>
+           
+
+        </div>
+
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'user_login' %}">Login</a></li>
+        <li><a class="navbar-link" href="{% url 'register' %}">Regsiter</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+    <script src="{% static 'javascript/script.js' %}" type="text/javascript"></script> 
+
+
+</html>

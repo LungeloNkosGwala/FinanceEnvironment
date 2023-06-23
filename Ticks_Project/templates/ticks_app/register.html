@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<html>
+    {% include 'ticks_app/head.html' %}
+            
+                <div class="container">
+                    <h4>Please register username</h4>
+                    <form method="post">
+                        {{ form}}
+                        {% csrf_token %}
+                        <input type="submit" value="Register">
+                    </form>
+                </div>
+                
+
+        </body>
+        <script src="{% static 'javascript/script.js' %}" type="text/javascript"></script> 
+</html>

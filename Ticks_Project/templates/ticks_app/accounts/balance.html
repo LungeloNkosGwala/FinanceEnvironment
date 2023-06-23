@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<html>
+    {% include 'ticks_app/head.html' %}
+
+    
+    <body>
+        {% if user.is_authenticated %}
+        {% include 'ticks_app/sidebar.html' %}
+
+        <div class="section">
+            <div class="container">
+                <h3>Balance</h3>
+            </div>
+
+            <div class="container">
+                <form class="trans_form" id="trans_form" method="post" action="#">
+                    <table class="balance_table with-header-line">
+                        <thead id="thead_table">
+                            <th>Accounts</th>
+                            <th>Initial_Balance</th>
+                            <th>Balance_In</th>
+                            <th>Balance_Out</th>
+                            <th>Close_Bal</th>
+                        
+                        </thead>
+                        {% for k in stt %}
+                        <tr>
+                            <td>{{k.acc_name}}</td>
+                            <td>{{k.initial_bal}}</td>
+                            <td>{{k.in_bal}}</td>
+                            <td>{{k.out_bal}}</td>
+                            <td>R{{k.close_bal}}</td>
+                        </tr>
+                        {% empty %}
+                        {% endfor %}
+
+                        <tr class="tr_sub_total">
+                            <td class="td_sub_total">Short-Term Transactions</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>R{{close_balance.0|safe}}</td>
+                        </tr>
+
+                        {% for k in ltt %}
+                        <tr>
+                            <td>{{k.acc_name}}</td>
+                            <td>{{k.initial_bal}}</td>
+                            <td>{{k.in_bal}}</td>
+                            <td>{{k.out_bal}}</td>
+                            <td>R{{k.close_bal}}</td>
+                        </tr>
+                        {% empty %}
+                        {% endfor %}
+
+                        <tr class="tr_sub_total">
+                            <td class="td_sub_total">Long-Term Transactions</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>R{{close_balance.1|safe}}</td>
+                        </tr>
+
+                        {% for k in std %}
+                        <tr>
+                            <td>{{k.acc_name}}</td>
+                            <td>{{k.initial_bal}}</td>
+                            <td>{{k.in_bal}}</td>
+                            <td>{{k.out_bal}}</td>
+                            <td>R{{k.close_bal}}</td>
+                        </tr>
+                        {% empty %}
+                        {% endfor %}
+
+                        <tr class="tr_sub_total">
+                            <td class="td_sub_total">Short-Term Debt</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>R{{close_balance.2|safe}}</td>
+                        </tr>
+
+                        {% for k in ltd %}
+                        <tr>
+                            <td>{{k.acc_name}}</td>
+                            <td>{{k.initial_bal}}</td>
+                            <td>{{k.in_bal}}</td>
+                            <td>{{k.out_bal}}</td>
+                            <td>R{{k.close_bal}}</td>
+                        </tr>
+                        {% empty %}
+                        {% endfor %}
+
+                        <tr class="tr_sub_total">
+                            <td class="td_sub_total">Long-Term Debt</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>R{{close_balance.3|safe}}</td>
+                        </tr>
+
+                        <tr class="tr_grand_total">
+                            <td class="td_grand_total">Final Balance</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>R{{close_balance.4|safe}}</td>
+                        </tr>
+                        {% csrf_token %}
+                    </table>
+                </form>
+            </div>
+        </div>
+
+
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'user_login' %}">Login</a></li>
+        <li><a class="navbar-link" href="{% url 'register' %}">Regsiter</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+    <script src="{% static 'javascript/script.js' %}" type="text/javascript"></script> 
+
+
+</html>

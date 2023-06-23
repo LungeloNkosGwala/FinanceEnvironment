@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<html>
+    {% include 'ticks_app/head.html' %}
+
+    
+    <body>
+        {% if user.is_authenticated %}
+        {% include 'ticks_app/sidebar.html' %}
+
+        <div class="section">
+        {% include 'ticks_app/accounts/settings_bar.html' %}
+        </div>
+
+
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'user_login' %}">Login</a></li>
+        <li><a class="navbar-link" href="{% url 'register' %}">Regsiter</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+    <script src="{% static 'javascript/script.js' %}" type="text/javascript"></script> 
+
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<html>
+    {% include 'ticks_app/head.html' %}
+
+    
+    <body>
+        {% if user.is_authenticated %}
+            {% include 'ticks_app/sidebar.html' %}
+
+            <div class="section">
+                <div class="container">
+                    <h3>Create Account</h3>
+                </div>
+
+                <div class="container"><hr class="rounded" ></div>
+                <div class="container">
+                    <form id="trans_form" method="post" action="#">
+                        <label  for="" >Account Name</label>
+                        <input type = "text" id="acc_name" name="acc_name" placeholder="Item" Required>
+                        <br>
+                        <label  for="">Main</label>
+                        <select name="main">
+                            <option value="other">Other</option>
+                            <option value="main">Main</option>
+                        </select>
+                        <label for="">Account Type</label>
+                        <select name="acc_type">
+                            <option value="Short-Term_Transactions">Short-Term Transactions</option>
+                            <option value="Long-Term_Transactions">Long-Term Transactions</option>
+                            <option value="Short-Term_Debt">Short-Term Debt</option>
+                            <option value="Long-Term_Debt">Long-Term Debt</option>
+                        </select>
+                        <br>
+                        <label  for="" >Current Bal</label>
+                        <input type = "number" id="amount" min="0" name="amount" placeholder="amount" Required>
+                        <br>
+                        <button type="submit" name="submit">Create</button>
+                        {% csrf_token %}
+                    </form>
+                </div>
+                <div class="container">{% include 'ticks_app/message.html' %}</div>
+                <br>
+                <div class="container">
+                    <form id="trans_form" method="post" action="#">
+                        <table id="trans_table">
+                            <thead>
+                                <th>Account Type</th>
+                                <th>Account Name</th>
+                                <th id="table_th_button"><button id="table_button" type="submit" name="delete">Delete</button></th>
+                            </thead>
+                            {% for k in all_acc %}
+                            <tr>
+                                <td>{{k.acc_type}}</td>
+                                <td>{{k.acc_name}}</td>
+                                <td><input type="checkbox" name="select" value="{{k.acc_name}}"></td>
+                            </tr>
+                            {% empty %}
+                            
+                            {% endfor %}
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+            </div>
+            
+
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'user_login' %}">Login</a></li>
+        <li><a class="navbar-link" href="{% url 'register' %}">Regsiter</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+
+
+</html>

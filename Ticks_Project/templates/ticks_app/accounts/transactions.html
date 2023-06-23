@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<html>
+    {% include 'ticks_app/head.html' %}
+
+    
+    <body>
+        {% if user.is_authenticated %}
+            {% include 'ticks_app/sidebar.html' %}
+
+            <div class="section">
+                <div class="container">
+                    <h3>Transactions</h3>
+                </div>
+                <div class="container"><hr class="rounded" ></div>
+                <div class="container">
+                    <h5>Load Transactions</h5>
+                    <form id="trans_form" method="post" action="#">
+                        <label  for="" >Item Name</label>
+                        <select name="items">
+                            {% for t in all_items %}
+                            <option value="{{t}}">{{t}}</option>
+                            {% empty %}
+                            {% endfor %}
+                        </select>
+                        <br>
+                        <label  for="">Source Acc.</label>
+                        <select name="source">
+                            {% for i in all_acc %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% empty %}
+                            {% endfor %}
+                            <option value="Market">Market</option>
+                        </select>
+                        <label for="">Result Acc.</label>
+                        <select name="result">
+                            {% for i in all_acc %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% empty %}
+                            {% endfor %}
+                            <option value="Market">Market</option>
+                        </select>
+                        <br>
+                        <label for="">Amount</label>
+                        <input type="number" min="0" name="amount" id="amount">
+                        <button type="submit" name="submit">Enter</button>
+                        <br>
+                        <br>
+                        <h5>Search Transactions</h5>
+                        <div class="form-row">
+                            <label id="search_label" for="inputEmail4">Start date</label>
+                            <input type="date" format='%Y-%m-%d' name="from" class="form-control"  id="inputEmail4" placeholder="Start Date">
+                            <label id="search_label" for="inputEmail4">End date</label>
+                            <input type="date" format='%Y-%m-%d' name="to" class="form-control" id="inputEmail4" placeholder="End date">
+                        </div>
+                        <label for="">All</label>
+                        <input type="radio" id="search_all" name="type_search"  value="all_search" checked="checked">
+                        <label for="">Selected</label>
+                        <input type="radio" id="search_all" name="type_search"  value="select_search">
+                        <label for="">Item</label>
+                        <input type="radio" id="search_all" name="type_search"  value="item_search">
+                        <label for="">Source</label>
+                        <input type="radio" id="search_all" name="type_search"  value="source_search">
+                        <label for="">Result</label>
+                        <input type="radio" id="search_all" name="type_search"  value="result_search">
+                        <button type="submit" name="search" value="search">Search</button>
+                        {% csrf_token %}
+                    </form>
+                </div>
+                <div class="container">{% include 'ticks_app/message.html' %}</div>
+                <div class="container"><hr class="rounded" ></div>
+
+                <div class="container">
+                    <form id="trans_form" method="post" action="#">
+                        <table id="trans_table">
+                            <thead>
+                                <th>Date</th>
+                                <th>Item</th>
+                                <th>Amount</th>
+                                <th>Source</th>
+                                <th>Destination</th>
+                                <th id="table_th_button"><button id="table_button" type="submit" name="delete">Delete</button></th>
+                            </thead>
+                            {% for k in user_trans %}
+                            <tr>
+                                <td>{{k.trans_date}}</td>
+                                <td>{{k.items}}</td>
+                                <td name="amount_clear" value="{{k.amount}}">{{k.amount}}</td>
+                                <td name="source_clear" value="{{k.acc_source}}">{{k.acc_source}}</td>
+                                <td name="result_clear" value="{{k.acc_result}}">{{k.acc_result}}</td>
+                                <td><input type="checkbox" name = "clear" value={{k.id}} onclick="onlyOne(this)"></td>
+                            </tr>
+                            {% empty %}
+                            {% endfor %}
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+            </div>
+            
+
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'user_login' %}">Login</a></li>
+        <li><a class="navbar-link" href="{% url 'register' %}">Regsiter</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+
+    <script>
+        function onlyOne(checkbox) {
+            var checkboxes = document.getElementsByName('clear')
+            checkboxes.forEach((item) => {
+                if (item !== checkbox) item.checked = false
+            })
+        }
+    </script>
+    <script src="{% static 'javascript/script.js' %}" type="text/javascript"></script> 
+
+
+</html>

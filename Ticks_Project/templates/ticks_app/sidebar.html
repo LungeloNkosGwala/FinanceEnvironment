@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+
+<div class="wrapper">
+
+    <div class="sidebar">
+    <div class="profile">
+        <img src="{% static 'picture/pic1.jpg' %}" alt="profile_picture">
+        <h3>Anamika Roy</h3>
+        <p>Designer</p>
+    </div>
+    <ul>
+        <li>
+            <a href="{% url 'transactions' %}" class="active">
+                <span class="icon"><i class="fas fa-home"></i></span>
+                <span class="item">Transactions</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'balance' %}" class="active">
+                <span class="icon"><i class="fas fa-home"></i></span>
+                <span class="item">Balance</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'behaviour' %}" class="active">
+                <span class="icon"><i class="fas fa-home"></i></span>
+                <span class="item">Behaviour</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'settings' %}" class="active">
+                <span class="icon"><i class="fas fa-home"></i></span>
+                <span class="item">Setting</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'createAccount' %}" class="active">
+                <span class="icon"><i class="fas fa-home"></i></span>
+                <span class="item">Create Account</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'logout' %}" class="active">
+                <span class="icon"><i class="fas fa-home"></i></span>
+                <span class="item">Logout</span>
+            </a>
+        </li>
+    </ul>
+  </div>
+</div>

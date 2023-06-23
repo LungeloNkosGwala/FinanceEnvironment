@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <div class="container">
+        <h3>Settings</h3>
+    </div>
+    <div class="container">
+        <a href="{% url 'setup' %}"><button>Conditions</button></a>
+        <button>Automate</button>
+        <a href="{% url 'notes' %}"><button>Notes</button></a>
+    </div>
+
